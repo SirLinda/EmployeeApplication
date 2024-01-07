@@ -19,7 +19,7 @@ public class Address {
     private String province;
     private String country;
 
-    //@JsonIgnore
+    @JsonIgnore
     @ManyToOne
     private Employee employee;
 
@@ -34,6 +34,17 @@ public class Address {
         this.province = province;
         this.country = country;
         this.employee = employee;
+    }
+
+    public Address(final String line1, final String line2,
+                   final String zipCode, final String city,
+                   final String province,final String country) {
+        this.line1 = line1;
+        this.line2 = line2;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.province = province;
+        this.country = country;
     }
 
     public Address() {
