@@ -15,7 +15,7 @@ public class Project {
     private String name;
     private String clientName;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "projects")
     private List<Employee> employees;
 
     public Project(final String name, final String clientName) {
