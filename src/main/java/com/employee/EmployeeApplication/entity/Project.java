@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import javax.print.attribute.standard.MediaSize;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "project")
@@ -18,7 +21,7 @@ public class Project {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "projects")
-    private List<Employee> employees;
+    private Set<Employee> employees = new HashSet<Employee>();
 
     public Project(final String name, final String clientName) {
         this.name = name;
@@ -53,11 +56,11 @@ public class Project {
         this.clientName = clientName;
     }
 
-    public List<Employee> getEmployees() {
+    public Set<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(final List<Employee> employees) {
+    public void setEmployees(final Set<Employee> employees) {
         this.employees = employees;
     }
 }

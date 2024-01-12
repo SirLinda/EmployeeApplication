@@ -2,16 +2,16 @@ package com.employee.EmployeeApplication.service;
 
 import com.employee.EmployeeApplication.entity.Address;
 import com.employee.EmployeeApplication.entity.Employee;
+import com.employee.EmployeeApplication.entity.Project;
 import com.employee.EmployeeApplication.repository.EmployeeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
+@Transactional
 public class EmployeeService {
 
     List<Employee> employeeList = new ArrayList<>(Arrays.asList(
@@ -28,7 +28,16 @@ public class EmployeeService {
         /*return employeeList.stream()
                 .filter(employee -> (employee.getEmployeeId() == id))
                         .findFirst().get();*/
-        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
+
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
+
+        System.out.println("Fetching Projects in Service class");
+        Set<Project> projects = employee.getProjects();
+
+        for(Project project: projects){
+            System.out.println(project.getClientName());
+        }
+        return employee;
     }
     public  void createEmployee(Employee employee){
         //employeeList.add(employee);

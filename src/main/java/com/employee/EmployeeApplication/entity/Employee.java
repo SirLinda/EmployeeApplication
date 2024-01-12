@@ -15,14 +15,14 @@ public class Employee {
     private String employeeName;
     private String employeeCity;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_spouse")
     private Spouse spouse;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Address> addresses;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinTable(name = "employee_project",
             joinColumns = @JoinColumn(name = "fk_employee"),
             inverseJoinColumns = @JoinColumn(name = "fk_project"))
@@ -101,7 +101,9 @@ public class Employee {
     }
 
     public void addAddress(final Address address) {
+
         this.addresses = new ArrayList<>();
+
         this.addresses.add(address);
         address.setEmployee(this);
     }
